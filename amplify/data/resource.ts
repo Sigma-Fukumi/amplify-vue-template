@@ -19,11 +19,8 @@ const schema = a.schema({
   }),
 
   generateRecipe: a.generation({
-    aiModel: a.ai.model('Claude 3 Haiku'),
-    systemPrompt: `
-    You are a concise and helpful assistant.
-    Answer briefly unless asked for details.
-    `
+    aiModel: a.ai.model('Claude 3.5 Haiku'),
+    systemPrompt: 'You are a helpful assistant that generates recipes.',
   })
   .arguments({
     description: a.string(),
