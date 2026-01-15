@@ -15,12 +15,12 @@ const schema = a.schema({
   
   chat: a.conversation({
       aiModel: a.ai.model('Claude 3 Haiku'),
-      systemPrompt: 'You are a helpful assistant'
+      systemPrompt: 'あなたは日本語で対応する親切なアシスタントです。'
   }),
 
   generateRecipe: a.generation({
     aiModel: a.ai.model('Claude 3 Haiku'),
-    systemPrompt: 'You are a helpful assistant that generates recipes.',
+    systemPrompt: 'あなたは日本語でレシピを生成する料理の専門家です。',
   })
   .arguments({
     description: a.string(),
