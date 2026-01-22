@@ -2,7 +2,8 @@
 
 import { Authenticator } from "@aws-amplify/ui-vue";
 import "@aws-amplify/ui-vue/styles.css";
-import Todos from './components/AiRecipe.vue'
+import Todos from './components/AiRecipe.vue';
+import UploadFile from './components/UploadFile.vue';
 
 </script>
 
@@ -12,6 +13,7 @@ import Todos from './components/AiRecipe.vue'
       <template v-slot="{ user, signOut }">
         <h1>Hello {{user?.signInDetails?.loginId}}'s todos</h1>
         <Todos />
+        <UploadFile />
         <button @click="signOut">Sign Out</button>
       </template>
     </authenticator>
