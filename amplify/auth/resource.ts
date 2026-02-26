@@ -1,3 +1,5 @@
+// CognitoにUser Poolを作成してログインとサインアップ機能を実装
+// CognitoというAWSのリソースを定義するからresource.ts
 import { defineAuth } from '@aws-amplify/backend';
 
 /**

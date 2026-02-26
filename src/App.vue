@@ -1,20 +1,21 @@
 <script setup lang="ts">
-
+// Vue3のComposition APIの書き方
+// TODO:Vue2のOption APIとの違いについて調べて何がどう便利になったのかを知る
 import { Authenticator } from "@aws-amplify/ui-vue";
 import "@aws-amplify/ui-vue/styles.css";
-import Todos from './components/AiRecipe.vue';
-import UploadFile from './components/UploadFile.vue';
+import HeaderList from '@/components/Header.vue'
 
 </script>
 
 <template>
   <main> 
-    <authenticator>   
+    <authenticator>
+      <!--UIコンポーネントAuthenticatorの内部のuserとsignOut()を受け取る-->
       <template v-slot="{ user, signOut }">
-        <h1>Hello {{user?.signInDetails?.loginId}}'s todos</h1>
-        <Todos />
-        <UploadFile />
-        <button @click="signOut">Sign Out</button>
+        <div>
+          <HeaderList />
+        </div>
+        <router-view />
       </template>
     </authenticator>
   </main>

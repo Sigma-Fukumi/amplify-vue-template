@@ -1,3 +1,6 @@
+// AppSync + DB + AIを定義するためのDSL
+// AppSync/Dynamo DB/BedrockというAWSのリソースを定義するからresource.ts
+// a はAmplifyが提供しているスキーマ構築用ヘルパー
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 
 /*== STEP 1 ===============================================================
@@ -6,18 +9,22 @@ adding a new "isDone" field as a boolean. The authorization rule below
 specifies that any user authenticated via an API key can "create", "read",
 "update", and "delete" any "Todo" records.
 =========================================================================*/
+
+// APIモデルを作成
 const schema = a.schema({
+  // Todoモデル(model => Dynamo DBとCRUD API)
+  // GraphQLが生成　TodoのType/Query(select)/Mutation(INSERT/UPDATE/DELETE)
   Todo: a
     .model({
       content: a.string(),
     })
     .authorization(allow => [allow.owner()]),
-  
+  // AIチャットAPI
   chat: a.conversation({
       aiModel: a.ai.model('Claude 3 Haiku'),
       systemPrompt: 'あなたは日本語で対応する親切なアシスタントです。'
   }),
-
+  // AI生成API
   generateRecipe: a.generation({
     aiModel: a.ai.model('Claude 3 Haiku'),
     systemPrompt: 'あなたは日本語でレシピを生成する料理の専門家です。',
@@ -34,9 +41,9 @@ const schema = a.schema({
   )
   .authorization((allow) => [allow.authenticated()]),
 });
-
+// スキーマで定義したAPIを型付きで使用可能になる
 export type Schema = ClientSchema<typeof schema>;
-
+// データAPI(AppSync)全体の設定を確定してデプロイ対象にする宣言
 export const data = defineData({
   schema,
   authorizationModes: {
