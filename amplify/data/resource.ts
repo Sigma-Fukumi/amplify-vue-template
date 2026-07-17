@@ -21,12 +21,13 @@ const schema = a.schema({
     .authorization(allow => [allow.owner()]),
   // AIチャットAPI
   chat: a.conversation({
-      aiModel: a.ai.model('Claude 3 Haiku'),
+      aiModel: a.ai.model('Claude Haiku 4.5'),
       systemPrompt: 'あなたは日本語で対応する親切なアシスタントです。'
-  }),
+  })
+  .authorization((allow) => allow.owner()),
   // AI生成API
   generateRecipe: a.generation({
-    aiModel: a.ai.model('Claude 3 Haiku'),
+    aiModel: a.ai.model('Claude Haiku 4.5'),
     systemPrompt: 'あなたは日本語でレシピを生成する料理の専門家です。',
   })
   .arguments({
